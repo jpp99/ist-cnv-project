@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>pt.ulisboa.tecnico.meic.ccv</groupId>
+    <artifactId>ccv-gradients</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>Cloud Computing and Virtualization Project</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <jvm.options>-XX:-UseSplitVerifier</jvm.options>
+    </properties>
+
+    <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>3.1.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <version>3.0.0-M2</version>
+            <type>maven-plugin</type>
+            <scope>provided</scope>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M2</version>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+
+                            <rules>
+                                <requireJavaVersion>
+                                   <version>1.7</version>
+                                </requireJavaVersion>
+                            </rules>
+
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- any other plugins -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>make-assembly-jar</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase>
+
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <descriptors>
+                        <descriptor>zip.xml</descriptor>
+                    </descriptors>
+
+                </configuration>
+            </plugin>
+
+        </plugins>
+        <resources>
+            <resource>
+                <!--<directory>datasets</directory> -->
+                <directory>./</directory>
+                <includes>
+                    <!-- <include>**/*</include> -->
+                    <include>datasets/</include>
+                </includes>
+            </resource>
+            <resource>
+                <!--<directory>datasets</directory> -->
+                <directory>./</directory>
+                <includes>
+                    <!-- <include>**/*</include> -->
+                    <include>STUDENT-README.md</include>
+                </includes>
+            </resource>
+            <resource>
+                <!--<directory>datasets</directory> -->
+                <directory>./src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
+
+</project>
